@@ -19,6 +19,9 @@ pymongo = {extras = ["srv"], version = "*"}
 python-dotenv = "*"
 scikit-learn = "*"
 scipy = "*"
+pytest = "*"
+mongomock = "*"
+setuptools = "*"
 
 [dev-packages]
 
