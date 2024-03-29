@@ -22,13 +22,20 @@ class Database:
     the documents to a Pandas DataFrame or HTML table.
     """
 
-    load_dotenv()
-    database = MongoClient(getenv("DB_URL"),
-                           tls=True,
-                           tlsCAFile=where())["Bandersnatch_DB"]
-
     def __init__(self, collection):
+        self.database = self.connect_to_database()
         self.collection = self.database[collection]
+
+    def connect_to_database(self):
+        """Connects to the Bandersnatch database."""
+        load_dotenv()
+        if not getenv("DB_URL"):  # Included for path in Jupyter Notebook
+            dotenv_path = "../app/.env"
+            load_dotenv(dotenv_path=dotenv_path)
+        database = MongoClient(getenv("DB_URL"),
+                               tls=True,
+                               tlsCAFile=where())["Bandersnatch_DB"]
+        return database
 
     def seed(self, amount):
         """Fills the database with random monster data.
