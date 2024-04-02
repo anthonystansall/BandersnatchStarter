@@ -5,13 +5,19 @@ from Fortuna import random_int, random_float
 from MonsterLab import Monster
 from flask import Flask, render_template, request
 from pandas import DataFrame
+import altair as alt
 
 from app.data import Database
-from app.graph import chart
+from app.graph import chart, dark_theme
 from app.machine import Machine
 
 SPRINT = 2
 APP = Flask(__name__)
+
+
+# Enables custom altair chart theme
+alt.themes.register('dark_theme', dark_theme)
+alt.themes.enable('dark_theme')
 
 
 @APP.route("/")
