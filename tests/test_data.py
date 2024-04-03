@@ -1,31 +1,4 @@
-"""Module to test methods of the Database class in data.py.
-
-This module utilizes pytest and mongomock to create a mock database environment
-for testing the methods in the Database class. It uses a fixture to mock
-the MongoDB client connections and tests the seed, reset, count, dataframe,
-and html methods.
-"""
-import pytest
-from mongomock import MongoClient
-
-from app import data
-
-
-@pytest.fixture
-def mock_db(monkeypatch):
-    """Fixture to mock the MongoDB database."""
-    mock_client = MongoClient()
-
-    def mock_mongo_client(*args, **kwargs):
-        return mock_client
-
-    monkeypatch.setattr("pymongo.MongoClient", mock_mongo_client)
-
-    db_instance = data.Database("test_collection")
-    db_instance.collection.delete_many({})
-    yield db_instance
-
-    mock_client.drop_database("Bandersnatch_DB")
+"""Module to test methods of the Database class in data.py."""
 
 
 def test_seed(mock_db):

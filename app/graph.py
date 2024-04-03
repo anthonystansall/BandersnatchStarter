@@ -21,12 +21,14 @@ def chart(df, x, y, target) -> Chart:
     ).properties(
         width=600,
         height=400,
-        title=title
+        title=title,
+        padding=20
     )
     return scatter
 
 
 def dark_theme():
+    """Returns the style customizations for Altair chart."""
     return {
         "config": {
             "background": "#333333",
