@@ -4,6 +4,7 @@ import pytest
 from mongomock import MongoClient
 
 from app import data
+from app import machine
 
 
 @pytest.fixture
@@ -21,3 +22,12 @@ def mock_db(monkeypatch):
     yield db_instance
 
     mock_client.drop_database("Bandersnatch_DB")
+
+
+@pytest.fixture
+def mock_machine():
+    """Fixture to mock the Machine class."""
+    db = data.Database('monsters')
+    df = db.dataframe()
+    options = ["Level", "Health", "Energy", "Sanity", "Rarity"]
+    return machine.Machine(df[options])
